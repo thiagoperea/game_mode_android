@@ -122,6 +122,16 @@ fun MainScreen(
             }
         )
 
+        if (configuration.value.enableDoNotDisturb) {
+            ConfigurationSwitch(
+                label = "Esconder notificações da bandeja",
+                checked = configuration.value.hideNotificationsInDnd,
+                onCheckedChange = { enabled ->
+                    updateConfiguration { it.copy(hideNotificationsInDnd = enabled) }
+                }
+            )
+        }
+
         ConfigurationSwitch(
             label = "Abrir aplicativo ao ligar",
             checked = configuration.value.launchConfiguredApp,

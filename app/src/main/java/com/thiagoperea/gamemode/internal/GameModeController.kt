@@ -85,6 +85,8 @@ class GameModeController(
             remove(PREF_ACTIVE_CONFIG_JSON)
             putBoolean(PREF_GAME_MODE_ENABLED, false)
         }
+        // O app do jogo continua aberto e mantém a tela em paisagem mesmo com a rotação restaurada.
+        if (configuration.forceLandscape) goHome()
         return true
     }
 
@@ -145,6 +147,14 @@ class GameModeController(
         return true
     }
 
+    private fun goHome() {
+        context.startActivity(
+            Intent(Intent.ACTION_MAIN)
+                .addCategory(Intent.CATEGORY_HOME)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
+    }
+
     private fun saveConfigSnapshot() {
         val rotationState = context.getRotationState()
         val brightnessState = context.getBrightnessState()
@@ -183,7 +193,7 @@ class GameModeController(
         if (configuration.forceLandscape) forceLandscape()
         if (configuration.configureBrightness) setupBrightness(configuration.brightness)
         if (configuration.configureMediaVolume) setupMediaVolume(configuration.mediaVolumePercent)
-        if (configuration.enableDoNotDisturb) setupDoNotDisturb()
+        if (configuration.enableDoNotDisturb) setupDoNotDisturb(configuration.hideNotificationsInDnd)
     }
 
     private fun forceLandscape() {
@@ -218,7 +228,8 @@ class GameModeController(
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, targetVolume, 0)
     }
 
-    private fun setupDoNotDisturb() {
+    private fun setupDoNotDisturb(hideNotifications: Boolean) {
+        notificationManager.setNotificationListHidden(hideNotifications)
         notificationManager.setInterruptionFilter(
             NotificationManager.INTERRUPTION_FILTER_PRIORITY
         )

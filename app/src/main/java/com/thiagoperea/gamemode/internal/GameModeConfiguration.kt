@@ -7,6 +7,7 @@ data class GameModeConfiguration(
     val configureMediaVolume: Boolean = true,
     val mediaVolumePercent: Int = DEFAULT_MEDIA_VOLUME_PERCENT,
     val enableDoNotDisturb: Boolean = true,
+    val hideNotificationsInDnd: Boolean = true,
     val launchConfiguredApp: Boolean = true
 ) {
     companion object {

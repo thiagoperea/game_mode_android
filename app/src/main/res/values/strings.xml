@@ -3,4 +3,5 @@
     <string name="launcher_configure_label">GameMode — Configurar</string>
     <string name="launcher_enable_label">GameMode — Ligar</string>
     <string name="launcher_disable_label">GameMode — Desligar</string>
+    <string name="tile_dnd_label">Não Perturbe</string>
 </resources>
